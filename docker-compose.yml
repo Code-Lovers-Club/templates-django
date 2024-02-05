@@ -1,0 +1,76 @@
+version: '3'
+
+volumes:
+  local_postgres_data: {}
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data:Z
+    environment:
+      - POSTGRES_DB=app
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=toor
+    ports:
+      - "5432:5432"
+    networks:
+        - "local-development"
+
+  admin:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: local_admin
+    stdin_open: true # For ipdb
+    tty: true
+    links:
+      - postgres:postgres
+    working_dir: /app
+    volumes:
+      - type: bind
+        source: ./src
+        target: /app
+    env_file:
+      - ./.envs/${ENVIRONMENT}/.env-django
+      - ./.envs/${ENVIRONMENT}/.env-postgres
+    environment:
+      DJANGO_SETTINGS_MODULE: settings.admin.env_local
+      DJANGO_PORT: 8001
+    ports:
+      - "${APP_ADMIN_PORT}:8001"
+    command: /start
+    depends_on:
+      - postgres
+    networks:
+      - "local-development"
+
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: local_api
+    links:
+      - postgres:postgres
+    working_dir: /app
+    volumes:
+      - type: bind
+        source: ./src
+        target: /app
+    env_file:
+      - ./.envs/${ENVIRONMENT}/.env-django
+      - ./.envs/${ENVIRONMENT}/.env-postgres
+    environment:
+      DJANGO_SETTINGS_MODULE: settings.api.env_local
+      DJANGO_PORT: 8002
+    ports:
+      - "${APP_API_PORT}:8002"
+    command: /start
+    networks:
+      - "local-development"
+    depends_on:
+      - postgres
+networks:
+  local-development:

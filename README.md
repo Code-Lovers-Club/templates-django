@@ -51,28 +51,27 @@ DJANGO_POSTGRES_USER=root
 DJANGO_POSTGRES_PASSWORD=toor
 ```
 
-### Run admin configuration
+# Run environment
 
-1. First you need to create and super admin user
+## Run migrations
+For run migrations just execute this command
 
 ```bash
-$ make useradmin
+$ make migrate
 ```
 
-2. Then just need to run the server with
+## Load superuser data
+After run migrations you have to create a super user, so you can use djang's superuser command or load the fixture with this command:
+
+```bash
+$ make loaddata
+```
+
+## Run the server
+Finally you can run the admin server with this command:
 
 ```bash
 $ make admin
-```
-
-NOTE: If you change some docker or docker-compose configuration you must to apply `make build` command for load the changes.
-
-### Run api configuration
-
-1. Just need to run the next command
-
-```bash
-$ make api
 ```
 
 # Useful make commands
@@ -82,29 +81,7 @@ $ make api
 
 `rebuild`: Build all the images without cache.
 
-`down`: Delete all images creates.
-
-`api`: Run API server with postgres server
-
 `admin`: Run Admin server with postgres server
-
-`db`: Run Postgres database server
-
-`recreate`: Delete all database configuration and rebuild it
-
-`migrations`: Shortcut for ./manage.py makemigrations
-
-`migrate`: shortcut for ./manage.py migrate
-
-`useradmin`: Create an super user admin into django
-
-`grant_admin`: Grant admin permissions to one user based on email. You need to specify the `EMAIL` variable into the environment or run `EMAIL=<email> make grant_admin`
-
-`grant_staff`: Grant staff permissions to one user based on email. You need to specify the `EMAIL` variable into the environment or run `EMAIL=<email> make grant_staff`
-
-`mailhog`: Run email server
-
-`validate`: Run the pre-commit command for scan all files.
 
 `update`: Run pre-commit plugins, pip, poetry and poetry dependencies.
 
@@ -130,8 +107,6 @@ $ make api
 
 [django-structlog](https://django-structlog.readthedocs.io/en/latest/): Logging will then produce additional cohesive metadata on each logs that makes it easier to track events or incidents.
 
-[django-allauth](https://pypi.org/project/django-allauth/): Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication.
-
 
 ## Development Group
 [pylint-django](https://pypi.org/project/pylint-django/): pylint-django is a Pylint plugin for improving code analysis when analysing code using Django. It is also used by the Prospector tool.
@@ -145,14 +120,3 @@ $ make api
 [django-extensions](https://pypi.org/project/django-extensions/): Django Extensions is a collection of custom extensions for the Django Framework.
 
 [pytest-django](https://pypi.org/project/pytest-django/): A Django plugin for pytest.
-
-# MailHog Server to Development
-
-To run Mailhog, you only need to create the following `.env-server-email` variable file within the .envs folder and add the following variables:
-
-- EMAIL_HOST
-- EMAIL_PORT
-- EMAIL_BACKEND
-- EMAIL_USE_TLS
-
-Mailhog runs when you execute `make api` or `make admin`, for local development environment only.

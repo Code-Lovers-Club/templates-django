@@ -14,6 +14,43 @@ Django template is a whitelabel project for build applications in the easy way.
 ```bash
 $ make setup
 ```
+
+### Docker Compose Environment Variables
+Create a .env file and add this variables.
+
+```
+# Docker Compose
+ENVIRONMENT=local
+APP_API_PORT=8080
+APP_ADMIN_PORT=8081
+DB_PORT=5432
+MAILHOG_PORT_1=8025
+MAILHOG_PORT_2=1025
+```
+
+### Environment Variables
+For local environment you need to follow this steps:
+
+1. Create a .envs folder into root path
+2. Create a folder called `local` the name must be equals to the ENVIRONMENT variable value describe above.
+3. Create a `.env-django` file
+4. Create a `.env-postgres` file
+
+`.env-django` content:
+```
+DJANGO_CONFIGURATION=LocalConfig
+DJANGO_DEBUG=True
+DJANGO_SECRET_KEY=<<YOUR SECRET KEY>>
+```
+`.env-postgres` content:
+```
+DJANGO_POSTGRES_HOST=postgres
+DJANGO_POSTGRES_PORT=5432
+DJANGO_POSTGRES_DB=app
+DJANGO_POSTGRES_USER=root
+DJANGO_POSTGRES_PASSWORD=toor
+```
+
 ### Run admin configuration
 
 1. First you need to create and super admin user

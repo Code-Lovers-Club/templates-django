@@ -10,9 +10,8 @@ class AdminBaseConfig(AdminInterfaceConfig, AllAuthConfig, BaseConfig):
 
     def get_django_apps_t(self) -> list:
         return [
-            # "admin_interface",
-            # "colorfield",
-            "pixelflow_theme",
+            "admin_interface",
+            "colorfield",
             "django.contrib.admin",
             "django.contrib.auth",
             "django.contrib.contenttypes",

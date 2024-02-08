@@ -4,7 +4,7 @@ import typing
 
 from django.contrib import admin
 
-from apps.users.models import UserModel
+from apps.iam.users.models import UserModel
 
 
 @admin.register(UserModel)

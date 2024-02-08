@@ -31,7 +31,6 @@ shell_plus: ## [Django] Init shell with superpowers
 reset-migrations: ## [Django] Delete all migrations files and create new one
 	@docker compose -f ${DOCKER_COMPOSE_FILE} run admin find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
 	@docker compose -f ${DOCKER_COMPOSE_FILE} run admin find . -path "*/migrations/*.pyc"  -delete
-	@ migrations
 
 # ------------------------------------------- Application commands -------------------------------------------
 

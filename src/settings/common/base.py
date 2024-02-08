@@ -44,4 +44,8 @@ class BaseConfig(
         base_app_dir: str = str(base_dir / "apps")
         sys.path.append(base_app_dir)
 
+        # Add IAM as PYTHONPATH
+        base_app_iam: str = str(base_dir / "apps" / "iam")
+        sys.path.append(base_app_iam)
+
         return str(base_dir)

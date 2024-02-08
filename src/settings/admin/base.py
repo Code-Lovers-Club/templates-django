@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 from settings.admin.admin_interface import AdminInterfaceConfig
-from settings.admin.allauth import AllAuthConfig
 from settings.common.base import BaseConfig
 
 
-class AdminBaseConfig(AdminInterfaceConfig, AllAuthConfig, BaseConfig):
+class AdminBaseConfig(AdminInterfaceConfig, BaseConfig):
     ROOT_URLCONF = "urls.admin"
 
     def get_django_apps_t(self) -> list:
@@ -18,6 +17,3 @@ class AdminBaseConfig(AdminInterfaceConfig, AllAuthConfig, BaseConfig):
             "django.contrib.sessions",
             "django.contrib.messages",
         ]
-
-    def get_third_party_apps(self) -> list:
-        return ["allauth", "allauth.account", "allauth.socialaccount"]

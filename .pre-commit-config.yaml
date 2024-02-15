@@ -18,7 +18,7 @@ repos:
         exclude: (migrations/|tests/)
       - id: detect-private-key
   - repo: https://github.com/ambv/black
-    rev: 24.1.1
+    rev: 24.2.0
     hooks:
       - id: black
         language_version: python3

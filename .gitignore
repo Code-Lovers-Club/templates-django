@@ -271,6 +271,7 @@ tags
 village/media/
 
 .pytest_cache/
+.ruff_cache/
 .vscode/settings.json
 
 # Ignore template

@@ -1,13 +1,13 @@
 [tool.poetry]
-name = "template"
-version = "0.1.0"
-description = ""
-authors = ["Dharwin Perez <dharwin.perez@protonmail.com>"]
+name = "{{ cookiecutter.full_name }}"
+version = "{{ cookiecutter.version }}"
+description = "{{ cookiecutter.project_short_description }}"
+authors = ["{{ cookiecutter.full_name }} <{{ cookiecutter.email }}>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-urllib3 = "1.26.16"                                                                                 # Error with the last version of urllib3-2.0.2
+urllib3 = "^1.26.16"
 django = "^4.2.10"
 django-configurations = "^2.5"
 django-anymail = "^10.2"

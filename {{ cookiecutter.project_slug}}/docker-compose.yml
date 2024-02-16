@@ -1,0 +1,76 @@
+version: '3'
+
+volumes:
+  {{ cookiecutter.project_slug }}_postgres_data: {}
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - {{ cookiecutter.project_slug }}_postgres_data:/var/lib/postgresql/data:Z
+    environment:
+      - POSTGRES_USER={{ cookiecutter.db_user }}
+      - POSTGRES_PASSWORD={{ cookiecutter.db_password }}
+      - POSTGRES_DB={{ cookiecutter.db_name }}
+    ports:
+      - "{{ cookiecutter.db_port }}:5432"
+    networks:
+        - "{{ cookiecutter.project_slug }}_network"
+
+  admin:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: {{ cookiecutter.project_slug }}_admin
+    stdin_open: true # For ipdb
+    tty: true
+    links:
+      - postgres:postgres
+    working_dir: /app
+    volumes:
+      - type: bind
+        source: ./src
+        target: /app
+    env_file:
+      - ./.envs/${ADMIN_ENVIRONMENT}/.env-django
+      - ./.envs/${ADMIN_ENVIRONMENT}/.env-postgres
+    environment:
+      DJANGO_SETTINGS_MODULE: settings.admin.env_local
+      DJANGO_PORT: ${ADMIN_DJANGO_PORT}
+    ports:
+      - "${ADMIN_HOST_PORT}:${ADMIN_DJANGO_PORT}"
+    command: /start
+    depends_on:
+      - postgres
+    networks:
+      - "{{ cookiecutter.project_slug }}_network"
+
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: {{ cookiecutter.project_slug }}_api
+    links:
+      - postgres:postgres
+    working_dir: /app
+    volumes:
+      - type: bind
+        source: ./src
+        target: /app
+    env_file:
+      - ./.envs/${API_ENVIRONMENT}/.env-django
+      - ./.envs/${API_ENVIRONMENT}/.env-postgres
+    environment:
+      DJANGO_SETTINGS_MODULE: settings.api.env_local
+      DJANGO_PORT: ${API_DJANGO_PORT}
+    ports:
+      - "${API_HOST_PORT}:${API_DJANGO_PORT}"
+    command: /start
+    networks:
+      - "{{ cookiecutter.project_slug }}_network"
+    depends_on:
+      - postgres
+networks:
+  {{ cookiecutter.project_slug }}_network:

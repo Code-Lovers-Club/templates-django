@@ -1,0 +1,16 @@
+{
+  "full_name": "John Perez",
+  "email": "admin@example.com",
+  "project_name": "Django Project",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+  "project_short_description": "This boilerplate contains all the boilerplate you need to create a Django project",
+  "version": "0.1.0",
+  "admin_port": "8081",
+  "admin_environment": "local",
+  "api_port": "8002",
+  "api_environment": "local",
+  "db_user": "root",
+  "db_password": "toor",
+  "db_name": "app",
+  "db_port": "5432"
+}

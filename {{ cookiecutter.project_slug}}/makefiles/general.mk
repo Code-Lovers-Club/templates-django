@@ -1,12 +1,3 @@
-.PHONY: setup
-setup: ## [General] Setup the project configuration
-	@git init\
-	&& pip install -U pip poetry poetry-plugin-up pre-commit\
-	&& poetry install --no-root \
-	&& pre-commit install \
-	&& curl https://raw.githubusercontent.com/PixelFlowMX/branch-color/master/install.sh --output /tmp/install-branch-color.sh
-	/bin/bash /tmp/install-branch-color.sh
-
 # Pre commit
 .PHONY: validate
 validate: ## [General] Run precommit for all files

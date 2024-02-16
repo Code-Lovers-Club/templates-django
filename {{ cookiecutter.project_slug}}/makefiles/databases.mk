@@ -1,6 +1,6 @@
 .PHONY: db
 db: ## [Database] Run postgres
-	@docker compose -f ${DOCKER_COMPOSE_FILE} up postgres
+	@docker compose -f ${DOCKER_COMPOSE_FILE} up -d postgres
 
 .PHONY: db-recreate
 db-recreate: ## [Database] Delete and recreate postgres image

@@ -17,3 +17,10 @@ class DevConfig(APIBaseConfig):
         return [
             "django_extensions",
         ]
+
+    def get_third_party_apps(self) -> list[str]:
+        apps = super().get_third_party_apps()
+        return [
+            *apps,
+            "debug_toolbar",
+        ]

@@ -19,11 +19,13 @@ services:
         - "{{ cookiecutter.project_slug }}_network"
 
   admin:
+    image: {{ cookiecutter.project_slug }}/admin
     restart: always
     build:
       context: .
       dockerfile: ./Dockerfile
-    image: {{ cookiecutter.project_slug }}_admin
+      args:
+        EXTRA_DEP: "admin,dev,testing,local"
     stdin_open: true # For ipdb
     tty: true
     links:
@@ -48,10 +50,15 @@ services:
       - "{{ cookiecutter.project_slug }}_network"
 
   api:
+    restart: always
+    image: {{ cookiecutter.project_slug }}/api
     build:
       context: .
       dockerfile: ./Dockerfile
-    image: {{ cookiecutter.project_slug }}_api
+      args:
+        EXTRA_DEP: "api,dev,testing,local"
+    stdin_open: true # For ipdb
+    tty: true
     links:
       - postgres:postgres
     working_dir: /app

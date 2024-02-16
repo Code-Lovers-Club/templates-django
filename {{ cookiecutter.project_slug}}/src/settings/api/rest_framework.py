@@ -17,8 +17,8 @@ class BaseSpectacularConfig:
     @property
     def SPECTACULAR_SETTINGS(self) -> dict:  # noqa: N802
         return {
-            "TITLE": "HomeOwner API",
-            "DESCRIPTION": "This documentation its just available into development envirionment.",
+            "TITLE": "{{ cookiecutter.project_name }} API",
+            "DESCRIPTION": "This documentation its just available into development environment.",
             "VERSION": "1.0.0",
             "SERVE_INCLUDE_SCHEMA": False,
         }

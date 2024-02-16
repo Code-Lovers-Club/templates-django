@@ -18,14 +18,14 @@ RUN pip install -U pip poetry
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV APP_HOME = /app
+ENV POETRY_VIRTUALENVS_CREATE 0
+ARG EXTRA_DEP
 
 WORKDIR ${APP_HOME}
 
 # Install dependencies
-COPY ./pyproject.toml /tmp
-
-RUN cd /tmp && poetry config virtualenvs.create false \
-  && poetry install
+COPY ./pyproject.toml ${WORKDIR}
+RUN poetry install --with ${EXTRA_DEP} -vvv
 
 
 COPY ./docker/entrypoint /entrypoint

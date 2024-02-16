@@ -1,5 +1,5 @@
 .PHONY: init
-setup: ## [SetUp] Setup the project configuration
+init: ## [SetUp] Setup the project configuration
 	@git init\
 	&& mv .env.example .env \
 	&& mv ./environments/admin/{{ cookiecutter.admin_environment }}/.env-django.example ./environments/admin/{{ cookiecutter.admin_environment }}/.env-django \

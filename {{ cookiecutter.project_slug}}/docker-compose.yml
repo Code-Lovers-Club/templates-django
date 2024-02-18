@@ -36,8 +36,8 @@ services:
         source: ./src
         target: /app
     env_file:
-      - ./environments/admin/${ADMIN_ENVIRONMENT}/.env-django
-      - ./environments/admin/${ADMIN_ENVIRONMENT}/.env-postgres
+      - ./environments/admin/${ADMIN_ENVIRONMENT}/django.env
+      - ./environments/admin/${ADMIN_ENVIRONMENT}/postgres.env
     environment:
       DJANGO_SETTINGS_MODULE: settings.admin.env_local
       DJANGO_PORT: ${ADMIN_DJANGO_PORT}
@@ -67,8 +67,8 @@ services:
         source: ./src
         target: /app
     env_file:
-      - ./environments/api/${API_ENVIRONMENT}/.env-django
-      - ./environments/api/${API_ENVIRONMENT}/.env-postgres
+      - ./environments/api/${API_ENVIRONMENT}/django.env
+      - ./environments/api/${API_ENVIRONMENT}/postgres.env
     environment:
       DJANGO_SETTINGS_MODULE: settings.api.env_local
       DJANGO_PORT: ${API_DJANGO_PORT}

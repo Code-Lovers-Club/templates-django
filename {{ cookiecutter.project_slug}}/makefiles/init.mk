@@ -2,10 +2,10 @@
 init: ## Start the project configuration
 	@git init -b main \
 	&& mv .env.example .env \
-	&& mv ./environments/admin/local/.env-django.example ./environments/admin/local/.env-django \
-	&& mv ./environments/admin/local/.env-postgres.example ./environments/admin/local/.env-postgres \
-	&& mv ./environments/api/local/.env-django.example ./environments/api/local/.env-django \
-	&& mv ./environments/api/local/.env-postgres.example ./environments/api/local/.env-postgres \
+	&& cp ./environments/admin/local/env-django.example ./environments/admin/local/django.env \
+	&& cp ./environments/admin/local/env-postgres.example ./environments/admin/local/postgres.env \
+	&& cp ./environments/api/local/env-django.example ./environments/api/local/django.env \
+	&& cp ./environments/api/local/env-postgres.example ./environments/api/local/postgres.env \
 	&& pip install -U pip poetry poetry-plugin-up pre-commit\
 	&& poetry install --no-root \
 	&& pre-commit install \

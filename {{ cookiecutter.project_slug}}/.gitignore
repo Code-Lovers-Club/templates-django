@@ -274,5 +274,5 @@ village/media/
 .ruff_cache/
 .vscode/settings.json
 
-# Ignore template
-src/pixelflow_theme/*
+# Ignore environment variables
+*.env
